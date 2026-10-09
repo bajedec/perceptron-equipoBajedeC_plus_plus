@@ -43,5 +43,4 @@ class Perceptron:
         """Devuelve un array de 0 y 1, uno por fila de X."""
         if self.w is None:
             raise ModeloNoEntrenadoError("El modelo no ha sido entrenado.")
-        return np.where(X @ self.w + self.b >= 0, 1, 0)
-    
+        return np.where(X @ self.w + self.b >= 0, 1, 0)    
