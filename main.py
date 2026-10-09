@@ -74,7 +74,7 @@ def main():
     print("  accuracy:", round(accuracy(y3_te, y_pred3), 3))
     print("  error_clasificacion:", round(error_clasificacion(y3_te, y_pred3), 3))
     print("  matriz_confusion:", matriz_confusion(y3_te, y_pred3))
->>>>>>> 450f43280212fff3e70dbff59776f936020b54f7
+
 
     X_tr, X_te, y_tr, y_te = dividir(X, y)
 
