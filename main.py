@@ -47,7 +47,22 @@ def main():
 
     # ---------------- Modelo 3: otras features ----------------
     # Tarea 5: permitir elegir las features con --features
+    features = args.features
+    
+    datos = limpiar(df, features)
+    X = estandarizar(datos[features].to_numpy(dtype=float))
+    y = datos[args.objetivo].to_numpy()
 
+    X_tr, X_te, y_tr, y_te = dividir(X, y)
+
+    modelo3 = Perceptron(tasa_aprendizaje=0.01, epocas=30)
+    modelo3.entrenar(X_tr, y_tr)
+
+    y_pred = modelo3.predecir(X_te)
+    print("Modelo 3 (otras features)")
+    print("  features:", features)
+    print("  accuracy:", round(accuracy(y_te, y_pred), 3))
+    print("  errores por época:", modelo3.errores_por_epoca[:10], "...")
 
 if __name__ == "__main__":
     main()
