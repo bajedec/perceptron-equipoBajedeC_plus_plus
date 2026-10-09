@@ -18,7 +18,11 @@ def main():
     parser = argparse.ArgumentParser(description="Clasificador con Perceptrón")
     parser.add_argument("--datos", default="datos/pacientes.csv")
     parser.add_argument("--objetivo", default="diagnostico")
-    parser.add_argument("--features", nargs="+", default=["concavidad", "puntos_concavos", "area", "textura"])
+    parser.add_argument(
+        "--features",
+        nargs="+",
+        default=["concavidad", "puntos_concavos", "area", "textura"]
+    )
     args = parser.parse_args()
 
     df = cargar_datos(args.datos, args.objetivo)
