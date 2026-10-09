@@ -11,7 +11,7 @@ class Perceptron:
             raise ValueError("La tasa de aprendizaje debe ser mayor a 0.")
         if epocas <= 0:
             raise ValueError("Las épocas deben ser mayores a 0.")
-            
+
         self.tasa = tasa_aprendizaje
         self.epocas = epocas
         self.decaimiento = decaimiento
@@ -24,11 +24,11 @@ class Perceptron:
         self.w = np.zeros(X.shape[1])
         self.b = 0.0
         self.errores_por_epoca = []
-        
+
         for epoca in range(self.epocas):
             # Cálculo de la tasa de aprendizaje decreciente por época
             tasa_actual = self.tasa / (1.0 + self.decaimiento * epoca)
-            
+
             errores = 0
             for xi, yi in zip(X, y):
                 y_pred = 1 if xi @ self.w + self.b >= 0 else 0
@@ -44,3 +44,4 @@ class Perceptron:
         if self.w is None:
             raise ModeloNoEntrenadoError("El modelo no ha sido entrenado.")
         return np.where(X @ self.w + self.b >= 0, 1, 0)
+    
