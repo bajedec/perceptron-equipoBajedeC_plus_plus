@@ -5,9 +5,10 @@ import numpy as np
 class Perceptron:
     """Clasificador binario: predice 1 si X·w + b >= 0, si no 0."""
 
-    def __init__(self, tasa_aprendizaje=0.01, epocas=50):
+    def __init__(self, tasa_aprendizaje=0.01, epocas=50, decaimiento=0.0):
         self.tasa = tasa_aprendizaje
         self.epocas = epocas
+        self.decaimiento = decaimiento
         self.w = None
         self.b = 0.0
         self.errores_por_epoca = []
@@ -17,13 +18,17 @@ class Perceptron:
         self.w = np.zeros(X.shape[1])
         self.b = 0.0
         self.errores_por_epoca = []
-        for _ in range(self.epocas):
+        
+        for epoca in range(self.epocas):
+            # Cálculo de la tasa de aprendizaje decreciente por época
+            tasa_actual = self.tasa / (1.0 + self.decaimiento * epoca)
+            
             errores = 0
             for xi, yi in zip(X, y):
                 y_pred = 1 if xi @ self.w + self.b >= 0 else 0
                 error = yi - y_pred
-                self.w = self.w + self.tasa * error * xi
-                self.b = self.b + self.tasa * error
+                self.w = self.w + tasa_actual * error * xi
+                self.b = self.b + tasa_actual * error
                 errores += int(error != 0)
             self.errores_por_epoca.append(errores)
         return self
