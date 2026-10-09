@@ -8,7 +8,8 @@ import sys
 
 from src.datos import cargar_datos, limpiar, estandarizar, dividir
 from src.perceptron import Perceptron
-from src.metricas import accuracy
+from src.metricas import accuracy, error_clasificacion, matriz_confusion
+from src.excepciones import DatosInvalidosError
 
 FEATURES_BASE = ["radio", "textura", "perimetro", "area"]
 
@@ -17,6 +18,7 @@ def main():
     parser = argparse.ArgumentParser(description="Clasificador con Perceptrón")
     parser.add_argument("--datos", default="datos/pacientes.csv")
     parser.add_argument("--objetivo", default="diagnostico")
+    parser.add_argument("--features", nargs="+", default=["concavidad", "puntos_concavos", "area", "textura"])
     args = parser.parse_args()
 
     df = cargar_datos(args.datos, args.objetivo)
@@ -46,8 +48,25 @@ def main():
     print("  errores por época:", modelo2.errores_por_epoca[:10], "...")
 
     # ---------------- Modelo 3: otras features ----------------
-    # Tarea 5: permitir elegir las features con --features
+    features_invalidas = [f for f in args.features if f not in df.columns]
+    if features_invalidas:
+        raise DatosInvalidosError(f"Columnas inexistentes: {' '.join(features_invalidas)}")
+
+    datos3 = limpiar(df, args.features)
+    X3 = estandarizar(datos3[args.features].to_numpy(dtype=float))
+    X3_tr, X3_te, y3_tr, y3_te = dividir(X3, y)
+    modelo3 = Perceptron(tasa_aprendizaje=0.01, epocas=30)
+    modelo3.entrenar(X3_tr, y3_tr)
+    y_pred3 = modelo3.predecir(X3_te)
+    print(f"Modelo 3 (features: {', '.join(args.features)})")
+    print("  accuracy:", round(accuracy(y3_te, y_pred3), 3))
+    print("  error_clasificacion:", round(error_clasificacion(y3_te, y_pred3), 3))
+    print("  matriz_confusion:", matriz_confusion(y3_te, y_pred3))
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except DatosInvalidosError as e:
+        print(f"Error: {e}")
+        sys.exit(1)
