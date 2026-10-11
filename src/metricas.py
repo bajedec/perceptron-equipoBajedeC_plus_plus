@@ -1,4 +1,4 @@
-"""Métricas para evaluar un clasificador binario."""
+"""Metricas para evaluar un clasificador binario."""
 import numpy as np
 
 
