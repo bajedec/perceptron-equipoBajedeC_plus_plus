@@ -7,7 +7,7 @@ import argparse
 
 from src.datos import cargar_datos, limpiar, estandarizar, dividir
 from src.perceptron import Perceptron
-from src.metricas import accuracy
+from src.metricas import accuracy, error_clasificacion, matriz_confusion
 
 FEATURES_BASE = ["radio", "textura", "perimetro", "area"]
 
@@ -27,10 +27,12 @@ def main():
     X_tr, X_te, y_tr, y_te = dividir(X, y)
     modelo1 = Perceptron(tasa_aprendizaje=0.01, epocas=30)
     modelo1.entrenar(X_tr, y_tr)
-    y_pred = modelo1.predecir(X_te)
+    y_pred1 = modelo1.predecir(X_te)
     print("Modelo 1 (tasa 0.01)")
-    print("  accuracy:", round(accuracy(y_te, y_pred), 3))
-    print("  errores por época:", modelo1.errores_por_epoca[:10], "...")
+    print("  accuracy:", round(accuracy(y_te, y_pred1), 3))
+    print("  error de clasificacion:", round(error_clasificacion(y_te, y_pred1), 3))
+    print("  matriz de confusion:", matriz_confusion(y_te, y_pred1))
+    print("  errores por época:", modelo1.errores_por_epoca[:10], "...\n")
 
     # ---------------- Modelo 2: con decaimiento ----------------
     datos = limpiar(df, FEATURES_BASE)
@@ -39,9 +41,11 @@ def main():
     X_tr, X_te, y_tr, y_te = dividir(X, y)
     modelo2 = Perceptron(tasa_aprendizaje=0.5, epocas=30, decaimiento=0.1)
     modelo2.entrenar(X_tr, y_tr)
-    y_pred = modelo2.predecir(X_te)
+    y_pred2 = modelo2.predecir(X_te)
     print("Modelo 2 (tasa 0.5 con decaimiento)")
-    print("  accuracy:", round(accuracy(y_te, y_pred), 3))
+    print("  accuracy:", round(accuracy(y_te, y_pred2), 3))
+    print("  error de clasificacion:", round(error_clasificacion(y_te, y_pred2), 3))
+    print("  matriz de confusion:", matriz_confusion(y_te, y_pred2))
     print("  errores por época:", modelo2.errores_por_epoca[:10], "...")
 
     # ---------------- Modelo 3: otras features ----------------
