@@ -36,7 +36,7 @@ python main.py --datos datos/pacientes.csv --objetivo diagnostico
 |---|---|---|
 | SAUL ADAIN HUILLCA RODRIGUEZ | - | Líder |
 | HUMBERTO ZAMORA MOSCOSO |  |  |
-| DIEGO ISAIAS GUTIERREZ RUIZ |  |  |
+| DIEGO ISAIAS GUTIERREZ RUIZ | 77021535 |  |
 | OSCAR JHOSUE PASTOR QUISPE |  |  |
 
 ## Resultados
