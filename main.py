@@ -6,14 +6,10 @@ Uso:
 import argparse
 import sys
 
-
 from src.datos import cargar_datos, limpiar, estandarizar, dividir
 from src.perceptron import Perceptron
-
-from src.metricas import accuracy
-from src.excepciones import DatosInvalidosError
 from src.metricas import accuracy, error_clasificacion, matriz_confusion
-
+from src.excepciones import DatosInvalidosError
 
 FEATURES_BASE = ["radio", "textura", "perimetro", "area"]
 
@@ -26,7 +22,7 @@ def main():
 
     df = cargar_datos(args.datos, args.objetivo)
 
-# ---------------- Modelo 1: básico ----------------
+    # ---------------- Modelo 1: básico ----------------
     datos = limpiar(df, FEATURES_BASE)
     X = estandarizar(datos[FEATURES_BASE].to_numpy(dtype=float))
     y = datos[args.objetivo].to_numpy()
