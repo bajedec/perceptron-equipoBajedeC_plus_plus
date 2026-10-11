@@ -4,7 +4,7 @@ Uso:
     python main.py --datos datos/pacientes.csv --objetivo diagnostico
 """
 import argparse
-import sys
+
 
 from src.datos import cargar_datos, limpiar, estandarizar, dividir
 from src.perceptron import Perceptron
@@ -51,6 +51,7 @@ def main():
 
     # ---------------- Modelo 3: otras features ----------------
     # Tarea 5: permitir elegir las features con --features
+
 
 if __name__ == "__main__":
     main()

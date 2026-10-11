@@ -22,4 +22,4 @@ def matriz_confusion(y, y_pred):
     fn = np.sum((y_real == 1) & (pred == 0))
     tp = np.sum((y_real == 1) & (pred == 1))
 
-    return [[int(tn), int(fp)], [int(fn), int(tp)]]
+    return [[int(tn), int(fp)], [int(fn), int(tp)]]
