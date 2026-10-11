@@ -1,6 +1,9 @@
 """Carga y preparación de los datos para el Perceptrón."""
+import os
 import numpy as np
 import pandas as pd
+
+from src.excepciones import DatosInvalidosError
 
 
 def cargar_datos(ruta, objetivo):
@@ -8,7 +11,17 @@ def cargar_datos(ruta, objetivo):
 
     `objetivo` es el nombre de la columna con la clase (0 o 1).
     """
+    if not os.path.exists(ruta):
+        raise DatosInvalidosError(f"No existe el archivo {ruta}")
+
     df = pd.read_csv(ruta)
+
+    if objetivo not in df.columns:
+        raise DatosInvalidosError(f"No existe la columna objetivo '{objetivo}'")
+
+    if df[objetivo].nunique() != 2:
+        raise DatosInvalidosError(f"La columna '{objetivo}' no es binaria")
+
     return df
 
 
@@ -21,7 +34,10 @@ def limpiar(df, features):
 
 
 def estandarizar(X):
-    """Deja cada columna con media 0 y desviación 1."""
+    """Deja cada columna con media 0 y desviación 1.
+
+    Si la desviación es 0, usa 1 para evitar división entre cero.
+    """
     media = X.mean(axis=0)
     desv = X.std(axis=0)
     desv = np.where(desv == 0, 1, desv)

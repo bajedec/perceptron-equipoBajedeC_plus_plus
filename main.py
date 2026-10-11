@@ -28,7 +28,7 @@ def main():
 
     df = cargar_datos(args.datos, args.objetivo)
 
-# ---------------- Modelo 1: básico ----------------
+    # ---------------- Modelo 1: básico ----------------
     datos = limpiar(df, FEATURES_BASE)
     X = estandarizar(datos[FEATURES_BASE].to_numpy(dtype=float))
     y = datos[args.objetivo].to_numpy()
@@ -76,6 +76,6 @@ def main():
 if __name__ == "__main__":
     try:
         main()
-    except DatosInvalidosError as e:
+    except (DatosInvalidosError, ValueError) as e:
         print(f"Error: {e}")
         sys.exit(1)
