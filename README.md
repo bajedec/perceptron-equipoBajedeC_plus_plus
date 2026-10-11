@@ -34,10 +34,12 @@ python main.py --datos datos/pacientes.csv --objetivo diagnostico
 
 | Nombre | Código | Rol |
 |---|---|---|
-| | | Líder |
-| | | |
-| | | |
+| SAUL ADAIN HUILLCA RODRIGUEZ |  | Líder |
+| HUMBERTO ZAMORA MOSCOSO |  |  |
+| DIEGO ISAIAS GUTIERREZ RUIZ |  |  |
+| OSCAR JHOSUE PASTOR QUISPE |  |  |
 
 ## Resultados
+
 
 _Se completa en la Tarea 7._
