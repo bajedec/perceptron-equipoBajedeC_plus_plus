@@ -42,7 +42,7 @@ python main.py --features concavidad puntos_concavos area textura
 | Nombre | Código | Rol |
 |---|---|---|
 | SAUL ADAIN HUILLCA RODRIGUEZ | 74401464 | Líder |
-| HUMBERTO ZAMORA MOSCOSO | - | Colaborador |
+| HUMBERTO ZAMORA MOSCOSO | 61549938 | Colaborador |
 | DIEGO ISAIAS GUTIERREZ RUIZ | 77021535 | Colaborador |
 | OSCAR JHOSUE PASTOR QUISPE | 73138388 | Colaborador |
 
