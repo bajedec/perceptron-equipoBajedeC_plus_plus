@@ -4,6 +4,7 @@ Uso:
     python main.py --datos datos/pacientes.csv --objetivo diagnostico
 """
 import argparse
+import sys
 
 from src.datos import cargar_datos, limpiar, estandarizar, dividir
 from src.perceptron import Perceptron

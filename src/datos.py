@@ -34,17 +34,13 @@ def limpiar(df, features):
 
 
 def estandarizar(X):
-    """Resta la media y divide entre la desviación estándar.
+    """Deja cada columna con media 0 y desviación 1.
 
     Si la desviación es 0, usa 1 para evitar división entre cero.
     """
     media = X.mean(axis=0)
     desv = X.std(axis=0)
- feature/excepciones
-    desv[desv == 0] = 1
-
     desv = np.where(desv == 0, 1, desv)
- develop
     return (X - media) / desv
 
 
