@@ -76,10 +76,6 @@ def main():
 if __name__ == "__main__":
     try:
         main()
-
     except (DatosInvalidosError, ValueError) as e:
-
-    except DatosInvalidosError as e:
-
         print(f"Error: {e}")
         sys.exit(1)
