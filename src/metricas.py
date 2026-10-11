@@ -1,14 +1,14 @@
-"""Métricas para evaluar un clasificador binario."""
+"""Metricas para evaluar un clasificador binario."""
 import numpy as np
 
 
 def accuracy(y, y_pred):
-    """Proporción de predicciones correctas (entre 0 y 1)."""
+    """ProporciÃ³n de predicciones correctas (entre 0 y 1)."""
     return float(np.mean(np.asarray(y) == np.asarray(y_pred)))
 
 
 def error_clasificacion(y, y_pred):
-    """Proporción de predicciones incorrectas (entre 0 y 1)."""
+    """ProporciÃ³n de predicciones incorrectas (entre 0 y 1)."""
     return 1.0 - accuracy(y, y_pred)
 
 
