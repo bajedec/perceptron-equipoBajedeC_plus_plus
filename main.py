@@ -6,7 +6,6 @@ Uso:
 import argparse
 import sys
 
-
 from src.datos import cargar_datos, limpiar, estandarizar, dividir
 from src.perceptron import Perceptron
 from src.metricas import accuracy, error_clasificacion, matriz_confusion
@@ -42,15 +41,15 @@ def main():
     print("  matriz de confusion:", matriz_confusion(y_te, y_pred1))
     print("  errores por época:", modelo1.errores_por_epoca[:10], "...\n")
 
-    # ---------------- Modelo 2: tasa grande ----------------
+    # ---------------- Modelo 2: con decaimiento ----------------
     datos = limpiar(df, FEATURES_BASE)
     X = estandarizar(datos[FEATURES_BASE].to_numpy(dtype=float))
     y = datos[args.objetivo].to_numpy()
     X_tr, X_te, y_tr, y_te = dividir(X, y)
-    modelo2 = Perceptron(tasa_aprendizaje=0.5, epocas=30)
+    modelo2 = Perceptron(tasa_aprendizaje=0.5, epocas=30, decaimiento=0.1)
     modelo2.entrenar(X_tr, y_tr)
     y_pred2 = modelo2.predecir(X_te)
-    print("Modelo 2 (tasa 0.5)")
+    print("Modelo 2 (tasa 0.5 con decaimiento)")
     print("  accuracy:", round(accuracy(y_te, y_pred2), 3))
     print("  error de clasificacion:", round(error_clasificacion(y_te, y_pred2), 3))
     print("  matriz de confusion:", matriz_confusion(y_te, y_pred2))
