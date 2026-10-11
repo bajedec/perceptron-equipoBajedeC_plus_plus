@@ -26,8 +26,11 @@ def cargar_datos(ruta, objetivo):
 
 
 def limpiar(df, features):
-    """Elimina filas con NaN en las columnas indicadas."""
-    return df.dropna(subset=features)
+    """Devuelve una copia con los nulos de cada feature rellenados con su mediana."""
+    datos = df.copy()
+    for col in features:
+        datos[col] = datos[col].fillna(datos[col].median())
+    return datos
 
 
 def estandarizar(X):
@@ -41,12 +44,9 @@ def estandarizar(X):
     return (X - media) / desv
 
 
-def dividir(X, y, proporcion=0.7, semilla=42):
-    """Divide en entrenamiento y prueba."""
-    np.random.seed(semilla)
-    n = len(X)
-    indices = np.random.permutation(n)
-    n_ent = int(n * proporcion)
-    X_tr, X_te = X[indices[:n_ent]], X[indices[n_ent:]]
-    y_tr, y_te = y[indices[:n_ent]], y[indices[n_ent:]]
-    return X_tr, X_te, y_tr, y_te
+def dividir(X, y, prueba=0.2, semilla=42):
+    """Mezcla las filas y separa entrenamiento y prueba."""
+    idx = np.random.default_rng(semilla).permutation(len(X))
+    n_prueba = int(len(X) * prueba)
+    te, tr = idx[:n_prueba], idx[n_prueba:]
+    return X[tr], X[te], y[tr], y[te]
