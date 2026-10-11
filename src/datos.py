@@ -40,7 +40,11 @@ def estandarizar(X):
     """
     media = X.mean(axis=0)
     desv = X.std(axis=0)
+ feature/excepciones
     desv[desv == 0] = 1
+
+    desv = np.where(desv == 0, 1, desv)
+ develop
     return (X - media) / desv
 
 
